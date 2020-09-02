@@ -1,6 +1,6 @@
 project 1
 ===========
-I'm going to analyze the biodiversity of American National Parks dataset.
+I'm going to analyze the biodiversity of American National Parks dataset from https://www.kaggle.com/nationalparkservice/park-biodiversity?select=species.csv. 
 This git repo will eventually include this analysis.
 
 Usage
