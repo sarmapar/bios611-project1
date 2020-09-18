@@ -30,7 +30,7 @@ Figure 1 above shows that there is no immediately clear correlation between the 
 
 Figure 2 above shows that there also is no immediately clear correlation between the latitude and longitude location of a US National Park and the number of species in that park.
 
-![](assets/gender_power_comparison_single3.png)
+![](assets/species_plant_animal_rank.png)
 
 Figure 3 above represents the distribution of the number of plant and animal species in each of the US National Parks. 
 
@@ -42,18 +42,22 @@ Usage
 You'll need Docker and the ability to run Docker as your current user. 
 
 To build the container:
+    
     > docker build . -t project1-env
 
 This Docker container is based on rocker/verse. To run rstudio server:
+    
     > docker run -v `pwd`:/home/rstudio -p 8787:8787 -e PASSWORD = mypass -t project1-env
 
 Then connect to the machine on port 8787.
 
 To run Bash:
+    
     > docker run -v `pwd`:/home/rstudio -e PASSWORD=mypass -it l6 sudo -H -u rstudio /bin/bash -c "cd ~/; /bin/bash"
 
 
 Makefile
 ========
 To build figures as above (for example, figure 1), enter Bash either using the above usage directions or with Rstudio and say:
+    
     > make figures/species_number_long_lat.png
