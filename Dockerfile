@@ -1,3 +1,3 @@
 FROM rocker/verse
 MAINTAINER Sarah Parker <sarmae@live.unc.edu>
-RUN echo "Hello world"
+RUN R -e "install.packages('reshape2')"
