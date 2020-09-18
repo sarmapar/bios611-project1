@@ -1,29 +1,44 @@
-Project 1
-===========
-
+Project 1 Bios 611
+==================
 National Parks Dataset
-======================
+----------------------
 
 Proposal
-========
+--------
 
-Introduction
-------------
+###Introduction
 
-There are many National Parks in America that contain several different species of plants and animals. Some states have several large national parks, while others only have a few small ones. 
+There are many National Parks in America that contain several different species of plants and animals. These national parks are different sizes, and in different locations around the United States.
 
-Does the amount of land devoted to national parks correlate with the number of species found in those parks? Which states have the most land devoted to state parks, and do those states have a higher biodiversity in the parks?
+Does the amount of land devoted to national parks correlate with the number of species found in those parks? Does the location of the park correlate with the number of species found in those parks? Are there more unique plant species or animal species in these parks? 
 
 This project will undertake descriptive statistics of several publicaly available data sets. 
 
-Datasets
---------
+### Datasets
 
-The datasets I analyze here are publically available on Kaggle and usda.gov. They can be downloaded. 
-This repo contains an analysis of the US National Park Biodiversity and State Acerage datasets.
+The datasets I analyze here are publically available on Kaggle and can be downloaded. 
+This repo contains an analysis of the US National Park Biodiversity datasets.
+
+###Preliminary Figures
+
+![](assets/species_acreage.png)
+
+Figure 1 above shows that there is no immediately clear correlation between the number of species in a US National Park and the acreage of that park.
+
+
+![](assets/species_number_long_lat.png)
+
+Figure 2 above shows that there also is no immediately clear correlation between the latitude and longitude location of a US National Park and the number of species in that park.
+
+![](assets/gender_power_comparison_single3.png)
+
+Figure 3 above represents the distribution of the number of plant and animal species in each of the US National Parks. 
+
+While it may be expected that there are more individual organisms in National Parks with more acreage, this trend does not continue to the number of unique species. The location of these parks also does not seem to correlate to the number of unique species, but there is a difference in the number of plant and animal species in each park. Some have more plant than animal species, but most have more animal species than plant species.
 
 Usage
 -----
+
 You'll need Docker and the ability to run Docker as your current user. 
 
 To build the container:
@@ -40,5 +55,6 @@ To run Bash:
 
 
 Makefile
---------
-To build figures
+========
+To build figures as above (for example, figure 1), enter Bash either using the above usage directions or with Rstudio and say:
+    > make figures/species_number_long_lat.png
