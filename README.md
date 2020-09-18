@@ -6,7 +6,7 @@ National Parks Dataset
 Proposal
 --------
 
-###Introduction
+### Introduction
 
 There are many National Parks in America that contain several different species of plants and animals. These national parks are different sizes, and in different locations around the United States.
 
@@ -19,7 +19,7 @@ This project will undertake descriptive statistics of several publicaly availabl
 The datasets I analyze here are publically available on Kaggle and can be downloaded. 
 This repo contains an analysis of the US National Park Biodiversity datasets.
 
-###Preliminary Figures
+### Preliminary Figures
 
 ![](assets/species_acreage.png)
 
