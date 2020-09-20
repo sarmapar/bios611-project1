@@ -10,9 +10,9 @@ Proposal
 
 There are many National Parks in America that contain several different species of plants and animals. These national parks are different sizes, and in different locations around the United States.
 
-Does the amount of land devoted to national parks correlate with the number of species found in those parks? Does the location of the park correlate with the number of species found in those parks? Are there more unique plant species or animal species in these parks? 
+Does the amount of land devoted to national parks correlate with the number of species found in those parks? Does the location of the park correlate with the number of species found in those parks? Are there more unique plant species or animal species in these parks? Where do certain species live, and which are the most common?
 
-This project will undertake descriptive statistics of several publicaly available data sets. 
+This project will undertake descriptive statistics of several publicaly available data sets. I plan to add a model to see if we can determine where certain species would be found based on the locations of these national parks, and explore information on the most common species and categories of organisms (i.e. plants/animals or mammals/birds/fish/etc.) using interactive plots. I want to fully understand what is in this dataset and create an interactive figure for exploring different species and where they live. 
 
 ### Datasets
 
