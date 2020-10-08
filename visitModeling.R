@@ -1,5 +1,7 @@
 library(tidyverse)
 library(ggplot2)
+library(MLmetrics)
+
 
 parks <- read_csv("derived_data/parks.csv") 
 species <- read_csv("derived_data/species.csv")
@@ -46,14 +48,13 @@ model <- glm(highVisits ~ numSpecies +
 pred <- predict(model, newdata=validate, type="response");
 sum((pred>0.5) == validate$highVisits)/nrow(validate);
 
-#library(MLmetrics)
-#f1 <- MLmetrics::F1_Score;
+f1 <- MLmetrics::F1_Score;
 f1(validate$highVisits, pred > 0.5);
 
 ###########^^^ this is promising, maybe do ROC curve from here? That might be good. 
 
 
-library(gbm)
+#library(gbm)
 model <- gbm(highVisits ~ numSpecies +
                numAnimalSpecies +
                numPlantSpecies +
