@@ -1,0 +1,17 @@
+---
+title: "Number of Species and Visitation of US National Parks"
+author: "Sarah Parker"
+date: "10/8/2020"
+output: pdf_document
+---
+
+There are 62 national parks in the United States. These parks see different numbers of visitors each year, and one reason could be the number of species of plants and animals one may see at one of these parks. This project will explore the correlation between the number of species and visitation in the US National Parks, and the effects of the number of plant and animal specis. 
+
+Data Sets
+=========
+The two primary data sets used in this project is the [Biodiversity in National Parks Dataset][data1] . Additionally, the average annual number of visitors of these national parks comes from the [Visitors Dataset][data2]. 
+
+***
+
+[data1]:https://www.kaggle.com/nationalparkservice/park-biodiversity
+[data2]:https://irma.nps.gov/STATS/SSRSReports/National%20Reports/Annual%20Visitation%20By%20Park%20(1979%20-%20Last%20Calendar%20Year)
