@@ -1,7 +1,7 @@
 library(tidyverse)
 library(ggplot2)
 library(MLmetrics)
-
+library(reshape2)
 
 parks <- read_csv("derived_data/parks.csv") 
 species <- read_csv("derived_data/species.csv")
@@ -24,47 +24,58 @@ parks <- species %>%
   group_by(ParkName) %>%
   summarize(numPlantSpecies=sum(Category %in% plant)) %>% inner_join(parks,by="ParkName")
 
-parks$highVisits <- (parks$Average10Yrs > 1000000)
-fit <- glm(highVisits~numSpecies+numAnimalSpecies+numPlantSpecies+Acres+Latitude+Longitude,data=parks)
-summary(fit)
+parks$highVisits <- (parks$Avg10YrVisits > 1000000)
 
-p <- ggplot(parks, aes(Latitude, Longitude)) + geom_point(aes(colour = numSpecies)) + 
-  labs(title="Number of Spieces in US National Parks by Latitude/Longitude")
+cor(parks$Avg10YrVisits,parks$numSpecies/parks$Acres)
+cor(parks$Avg10YrVisits,parks$Acres)
+cor(parks$Avg10YrVisits,parks$numSpecies)
+cor(parks$Avg10YrVisits,parks$numAnimalSpecies)
+cor(parks$Avg10YrVisits,parks$numPlantSpecies)
+
+parks.m <- melt(parks, id.vars="Avg10YrVisits",
+                measure.vars = c("numAnimalSpecies","numPlantSpecies"))
+p <- ggplot(parks.m, aes(x=Avg10YrVisits,y=value, color=variable)) + 
+  geom_point() +
+  labs(title="Correlation of the number of plant and animal species to annual visitation",
+       y="Number of Species",
+       x="Annual Visitors (10 year average)",
+       fill="Category") +
+  geom_smooth(method=lm, se=FALSE)
+
+ggsave("figures/species_visit_correlation.png",plot=p)
+
 
 #split data
 parks$label <- c(rep("Train",30),rep("Validate",9),rep("Test",9)) %>%
-  sample(48,replace=FALSE)
+    sample(48,replace=FALSE)
 
 train <- parks %>% filter(label=="Train");
 validate <- parks %>% filter(label=="Validate");
 test <- parks %>% filter(label=="Test");
 
-model <- glm(highVisits ~ numSpecies + 
+model <- glm(highVisits ~ numSpecies +
                numAnimalSpecies +
-               numPlantSpecies +
-               Acres +
-               Latitude +
-               Longitude, data=train)
+               numPlantSpecies,
+             data=train)
 pred <- predict(model, newdata=validate, type="response");
 sum((pred>0.5) == validate$highVisits)/nrow(validate);
-
+  
 f1 <- MLmetrics::F1_Score;
-f1(validate$highVisits, pred > 0.5);
-
-###########^^^ this is promising, maybe do ROC curve from here? That might be good. 
+f1(validate$highVisits, pred > 0.5)
 
 
-#library(gbm)
-model <- gbm(highVisits ~ numSpecies +
-               numAnimalSpecies +
-               numPlantSpecies +
-               Acres +
-               Latitude +
-               Longitude, distribution="bernoulli",
-             data=train,
-             n.trees = 5,
-             interaction.depth = 2,
-             shrinkage = 0.5)
+roc <- do.call(rbind, Map(function(threshold){
+  p <- pred > threshold;
+  tp <- sum(p[validate$highVisits])/sum(validate$highVisits);
+  fp <- sum(p[!validate$highVisits])/sum(!validate$highVisits);
+  tibble(threshold=threshold,
+         tp=tp,
+         fp=fp)
+},seq(100)/100))
 
-pred <- predict(model, validate, type="response")
-sum((pred>0.5)==validate$neutral)/nrow(validate)
+p2 <- ggplot(roc, aes(fp,tp)) + geom_line() + xlim(0,1) + ylim(0,1) +
+  labs(title="ROC Curve",x="False Positive Rate",y="True Positive Rate");
+
+ggsave("figures/roc.png",plot=p2)
+
+
