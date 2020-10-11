@@ -9,7 +9,32 @@ There are 62 national parks in the United States. These parks see different numb
 
 Data Sets
 =========
-The two primary data sets used in this project is the [Biodiversity in National Parks Dataset][data1] . Additionally, the average annual number of visitors of these national parks comes from the [Visitors Dataset][data2]. 
+The two primary data set used in this project is the [Biodiversity in National Parks Dataset][data1]. Additionally, the average annual number of visitors of these national parks comes from the [Visitors Dataset][data2]. 
+
+
+Number of Species in National Parks and effect on Visitation
+============================================================
+
+The number of unique identified species varies from park to park, and while a larger park has more individual plants and animals, there is no correlation in the acerage of a park and the number of species in the park (Figure 1). These parks, seen in figure 2 ranked by the total number of species, also have differing numbers of plant and animal species. 
+
+![](assets/species_acreage.png)
+Figure 1
+
+![](assets/species_plant_animal_rank.png)
+Figure 2
+
+How does the number of species correlate to the number of annual visitors in a national park? For this model, a park with a high number of visitors has an annual average number of visitors greater than 1,000,000 over the past 10 years (2010-2019). The following model has an F1 score of about 0.8. Since there are less than 50 parks with all the data needed for the model, the validation/test sets only have 9 data points each, so the ROC curve has very sharp spikes instead of a smooth curve (Figure 3).
+
+![](assets/species_visit_correlation.png)
+Figure 3
+
+The significant variables in the model are the total number of species, the number of plant species, and the number of animal species. Although one may believe a larger park will bring in more visitors per year, the most significant variable in the model is the number of unique plant species. The number of plant species also has a stronger positive correlation with the annual number of visitors averaged from the last 10 years than the number of animal species (Figure 4). These two and the total number of species are the only factors that had a positive correlation with visitors above 0.45. The Pearson correlations for total species, animal species, and plant species to the number of visitors are 0.484, 0.487, and 0.460, respectively. 
+
+![](assets/roc.png)
+Figure 4
+
+Based on this model, if a new region is to be selected for a new national park, one important consideration should be the number of species in the region and especially the number of plant species there. 
+
 
 ***
 
