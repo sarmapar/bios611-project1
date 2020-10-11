@@ -2,3 +2,8 @@
 .rstudio/*
 derived_data/*.csv
 figures/*.png
+
+report.pdf
+
+Rplots.pdf
+.bash_history
