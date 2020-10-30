@@ -61,3 +61,7 @@ Makefile
 To build figures as above (for example, figure 1), enter Bash either using the above usage directions or with Rstudio and say:
     
     > make figures/species_number_long_lat.png
+    
+To build the project pdf, use the command
+
+    > make report.pdf

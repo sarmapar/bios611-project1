@@ -1,0 +1,116 @@
+---
+title: "HW4"
+author: "Sarah Parker"
+date: "10/14/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r dataset}
+library(tidyverse)
+data <- read_csv("500_Person_Gender_Height_Weight_Index.csv")
+
+```
+## Problem 1
+
+
+```{r Q1}
+#make a new column, true if female, false if male
+data$Gender.F <- data$Gender == "Female"
+
+#split into training and test sets
+data$label <- c(rep("Train",400),rep("Test",100)) %>%
+    sample(500,replace=FALSE)
+
+train <- data %>% filter(label=="Train");
+test <- data %>% filter(label=="Test");
+
+#create model
+modelGLM <- glm(Gender.F ~ Height + Weight,
+             data=train)
+
+#make predictions using model
+pred <- predict(modelGLM, newdata=test, type="response");
+
+#calculate accuracy
+sum((pred>0.5) == test$Gender.F)/nrow(test);
+```
+After running this several times, the accuracy tends to be between 0.35 and 0.50.
+
+##Problem 2
+```{r Q2}
+library(gbm)
+
+#create model
+modelGBM <- gbm(Gender.F ~ Height + Weight,
+                data = train)
+#make predictions using model
+pred <- predict(modelGBM, test, type="response");
+
+#calculate accuracy
+sum((pred>0.5)==test$Gender.F)/nrow(test);
+
+```
+The accuracy for this model is consistantly higher than the glm model, with an accuracy usually between 0.45 and 0.60
+
+##Problem 3
+```{r Q3}
+library(MLmetrics)
+
+lessMales <- data %>%
+  filter(!data$Gender.F) %>%
+  sample_n(50,replace=F) %>%
+  bind_rows(filter(data, data$Gender.F))
+
+lessMales$label <- c(rep("Train",210),rep("Test",95)) %>%
+    sample(305,replace=FALSE)
+
+train <- lessMales %>% filter(label=="Train");
+test <- lessMales %>% filter(label=="Test");
+
+modelLM <- glm(Gender.F ~ Height + Weight,
+                data = train)
+
+pred <- predict(modelLM, newdata=test, type="response");
+
+f1 <- MLmetrics::F1_Score;
+f1(test$Gender.F, pred > 0.5);
+
+
+``` 
+
+In this model, there were often no negative cases (no predicted males), and the pred values are all above 0.5, so the F1 score was undefined. 
+
+## Problem 4
+```{r Q4}
+roc <- do.call(rbind, Map(function(threshold){
+    p <- pred > threshold
+    tp <- sum(p[test$Gender.F])/sum(test$Gender.F)
+    fp <- sum(p[!test$Gender.F])/sum(!test$Gender.F)
+    tibble(threshold=threshold,
+           tp=tp,
+           fp=fp)
+},seq(100)/100))
+
+ggplot(roc, aes(fp,tp)) + geom_line() + xlim(0,1) + ylim(0,1) +
+    labs(title="ROC Curve",x="False Positive Rate",y="True Positive Rate");
+```
+
+This ROC curve means this classifier does not have the best performance, because the area under the curve is not very close to 1. If the area under the curve is 1, the model is essentially perfect. This curve allows us to look at true positive rate and false positive rates at varying thresholds. 
+
+##Problem 5
+```{r Q5}
+library(Rtsne)
+
+cc <- kmeans(distinct(select(data, Height, Weight)), 2)
+fit <- Rtsne(distinct(select(data,Height,Weight)),dims=2)
+
+ggplot(fit$Y %>% as.data.frame() %>% as_tibble() %>% mutate(label=cc$cluster),aes(V1,V2)) +
+    geom_point(aes(color=factor(label)));
+```
+
+It is difficult to identify the clusters, since there is not a clear distinciton between them. There are points in cluster 1 that are very close neighbors to cluster 2. This is in line with the accuracy around 0.5 in the models and the difficulty of predicting males with less male data. Based off the models and plots in this homework, it can be concluded that height and weight alone do not provide enough information to predict a person's gender. 
+

@@ -35,6 +35,7 @@ Figure 4
 
 Based on this model, if a new region is to be selected for a new national park, one important consideration should be the number of species in the region and especially the number of plant species there. 
 
+Further analysis could include state parks, as this would add many more data points which could improve the accuracy of the model. It would also be interesting to determine the effects of each specific species on the number of visitors, perhaps even introducing common and rare species as factors. A common species would be one found in a multitude of parks, and a rare species would be found in only a few parks. This dataset also may not be complete, as there may be many more rare species that have not been observed in one of the parks. This may more commmon in larger state parks, meaning it may be more likely that larger parks will have a lower recorded number of species than actual number of species. 
 
 ***
 
