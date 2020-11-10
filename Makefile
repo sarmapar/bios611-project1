@@ -37,6 +37,13 @@ figures/species_plant_animal_rank.png:\
 	natParkPlantsAnimals.R
 		Rscript natParkPlantsAnimals.R
 		
+natParkApp:\
+	derived_data/parks.csv\
+	derived_data/species.csv\
+	derived_data/visits.csv\
+	natParkApp.R
+		Rscript natParkApp.R
+
 figures/species_visit_correlation.png figures/roc.png:\
 	derived_data/parks.csv\
 	derived_data/species.csv\
