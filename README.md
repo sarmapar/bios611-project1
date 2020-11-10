@@ -3,6 +3,8 @@ Project 1 Bios 611
 National Parks Dataset
 ----------------------
 
+*** R Shiny Instructions at the bottom ***
+
 Proposal
 --------
 
@@ -65,3 +67,18 @@ To build figures as above (for example, figure 1), enter Bash either using the a
 To build the project pdf, use the command
 
     > make report.pdf
+    
+
+R Shiny App Instructions
+========================
+To run the RShiny App, run an rstudio server on Docker as instructed above, then run the app from natParkApp.R. This depends on first pre-processing the data which can be done using 
+    
+    > make derived_data/parks.csv
+    
+Alternatively, this can be run command line using
+
+    > docker run -p 8080:8080 -v `pwd`:/home/rstudio -e PASSWORD=mypassword -t project1-env sudo -H -u rstudio /bin/bash -c "cd~/Rscript natParkApp.R"
+    
+Additionally, this can be run from the make file using
+
+    > make natParkApp
