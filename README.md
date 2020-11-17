@@ -75,10 +75,10 @@ To run the RShiny App, run an rstudio server on Docker as instructed above, then
     
     > make derived_data/parks.csv
     
-Alternatively, this can be run command line using
+Alternatively, this app can be run command line using
 
     > docker run -p 8080:8080 -v `pwd`:/home/rstudio -e PASSWORD=mypassword -t project1-env sudo -H -u rstudio /bin/bash -c "cd~/Rscript natParkApp.R"
     
-Additionally, this can be run from the make file using
+Additionally, this app can be run from the make file using
 
     > make natParkApp
