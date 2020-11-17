@@ -12,6 +12,7 @@ library(tidyverse)
 library(ggplot2)
 library(plotly)
 
+port <- 8080
 
 ###Pre-processing####
 
@@ -73,4 +74,4 @@ output$thePlot <- renderPlotly({
 }
 
 # Run the application 
-shinyApp(ui = ui, server = server,options=list(port=8080))
+shinyApp(ui = ui, server = server,options=list(port=port))
