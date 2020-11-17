@@ -37,6 +37,19 @@ Based on this model, if a new region is to be selected for a new national park, 
 
 Further analysis could include state parks, as this would add many more data points which could improve the accuracy of the model. It would also be interesting to determine the effects of each specific species on the number of visitors, perhaps even introducing common and rare species as factors. A common species would be one found in a multitude of parks, and a rare species would be found in only a few parks. This dataset also may not be complete, as there may be many more rare species that have not been observed in one of the parks. This may more commmon in larger state parks, meaning it may be more likely that larger parks will have a lower recorded number of species than actual number of species. 
 
+Python Integration
+============================================================
+
+For the python integration, I decided to look into if more people visit parks with a higher number of species unique to that US National Park, meaning the only recorded observation of that species is in a single park. There seems to be strong correlation on the diagonal, but there are also quite a few parks that have lower annual visitors but a higher number of unique species, with a r-squared value of 0.347 for linear regression. This is not strong evidence for a correlation between annual visitors and rare species for national parks in the United States.
+
+
+To create the plot from the makefile, run:
+    
+    > make figures/uniqueSpeciesVisits.png
+
+
+![](assets/uniqueSpeciesVisits.png)
+
 ***
 
 [data1]:https://www.kaggle.com/nationalparkservice/park-biodiversity
