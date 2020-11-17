@@ -1,0 +1,24 @@
+---
+title: "pythonIntegration"
+author: "Sarah Parker"
+date: "11/17/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Python Integration
+
+For the python integration, I decided to look into if more people visit parks with a higher number of species unique to that US National Park, meaning the only recorded observation of that species is in a single park. There seems to be strong correlation on the diagonal, but there are also quite a few parks that have lower annual visitors but a higher number of unique species, with a r-squared value of 0.347 for linear regression. This is not strong evidence for a correlation between annual visitors and rare species for national parks in the United States.
+
+
+To create the plot from the makefile, run:
+    
+    > make figures/uniqueSpeciesVisits.png
+
+
+
+![](assets/uniqueSpeciesVisits.png)
+
