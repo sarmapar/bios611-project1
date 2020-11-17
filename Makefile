@@ -1,4 +1,5 @@
 .PHONY: clean
+.PHONY: natParkApp
 SHELL: /bin/bash
 
 report.pdf:\
@@ -51,6 +52,14 @@ figures/species_visit_correlation.png figures/roc.png:\
 	visitModeling.R
 		Rscript visitModeling.R
 		
+figures/uniqueSpeciesVisits.png:\
+	derived_data/parks.csv\
+	derived_data/species.csv\
+	derived_data/visits.csv\
+	uniqueSpeciesVisits.py
+		jupyter nbconvert --to python uniqueSpeciesVisits.ipynb	
+		python uniqueSpeciesVisits.py
+	
 assets/species_acreage.png: figures/species_acreage.png
 		cp figures/species_acreage.png assets/species_acreage.png
 
@@ -65,3 +74,6 @@ assets/species_visit_correlation.png: figures/species_visit_correlation.png
 
 assets/roc.png: figures/roc.png 
 		cp figures/roc.png assets/roc.png 
+		
+assets/uniqueSpeciesVisits.png: figures/uniqueSpeciesVisits.png
+		cp figures/uniqueSpeciesVisits.png assets/uniqueSpeciesVisits.png
